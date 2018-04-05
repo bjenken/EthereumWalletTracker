@@ -16,8 +16,8 @@ export class AppComponent {
   constructor(private esService: EtherScanService){ }
 
   checkWalletBalance(f: NgForm){
-    console.log(f);
-    this.esService.getEtherWalletBalance()
+    const value = f.value;
+    this.esService.getEtherWalletBalance(value.walletAddress)
       .subscribe(
         (data) => {
           this.result = data['result'],

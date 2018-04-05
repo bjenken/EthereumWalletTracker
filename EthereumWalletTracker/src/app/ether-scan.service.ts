@@ -6,9 +6,9 @@ export class EtherScanService {
 
   constructor(private http: HttpClient) { }
 
-  getEtherWalletBalance(){
+  getEtherWalletBalance(walletAddress: string){
     //https://api.etherscan.io/api?module=account&action=balance&address=0xddbd2b932c763ba5b1b7ae3b362eac3e8d40121a&tag=latest&apikey=YourApiKeyToken
-    const walletAddress = "0xddbd2b932c763ba5b1b7ae3b362eac3e8d40121a";
+    //const walletAddress = "0xddbd2b932c763ba5b1b7ae3b362eac3e8d40121a";
     const apiKey = "KSSCJHAMXR2QD95WGK17F11423E2H18CCS";
     const etherScanUrl = "https://api.etherscan.io/api?module=account&action=balance" 
                         + "&address=" + walletAddress 
