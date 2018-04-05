@@ -1,8 +1,31 @@
-<h4>Ethereum Wallet Tracker</h4>
-
-<button (click)="checkWalletBalance()">Check Address</button>
-
-<h4>Result: {{ result }}</h4>
-<h4>Wei: {{ wei }}</h4>
-<h4>Ether: {{ ether }}</h4>
+<div class="jumbotron">
+  <div class="container">
+    <form (ngSubmit)="checkWalletBalance(f)" #f="ngForm">
+      <div class="row">
+        <div class="col-md-10">
+          <input type="text" id="name" class="form-control" name="name" ngModel required>
+        </div>
+        <div class="col-md-2">
+          <button class="btn btn-success" type="submit" [disabled]="!f.valid">Check Address</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-md-4">
+      <h2>Result</h2>
+      <p> {{ result }}</p>
+    </div>
+    <div class="col-md-4">
+      <h2>Wei</h2>
+      <p> {{ wei }}</p>
+    </div>
+    <div class="col-md-4">
+      <h2>Ether</h2>
+      <p> {{ ether }}</p>
+    </div>
+  </div>
+</div>
 

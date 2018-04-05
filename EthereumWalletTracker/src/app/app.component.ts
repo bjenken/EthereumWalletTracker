@@ -1,5 +1,6 @@
 import { EtherScanService } from './ether-scan.service';
 import { Component, Injectable } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -14,8 +15,8 @@ export class AppComponent {
   ether : any;
   constructor(private esService: EtherScanService){ }
 
-  checkWalletBalance(){
-    console.log("Balance Checked");
+  checkWalletBalance(f: NgForm){
+    console.log(f);
     this.esService.getEtherWalletBalance()
       .subscribe(
         (data) => {
