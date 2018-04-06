@@ -6,18 +6,23 @@ import { FormsModule } from '@angular/forms';
 
 
 import { AppComponent } from './app.component';
+import { WalletSearchComponent } from './wallet-search/wallet-search.component';
+import { WalletListComponent } from './wallet-list/wallet-list.component';
+import { WalletService } from './wallet.service';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    WalletSearchComponent,
+    WalletListComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     FormsModule
   ],
-  providers: [EtherScanService],
+  providers: [EtherScanService, WalletService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

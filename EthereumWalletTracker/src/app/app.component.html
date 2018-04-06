@@ -1,27 +1,6 @@
 <div class="jumbotron">
-  <div class="container">
-    <form (ngSubmit)="checkWalletBalance(f)" #f="ngForm">
-      <div class="row">
-        <div class="col-md-10">
-          <input type="text" id="walletAddress" class="form-control" name="walletAddress" placeholder="Wallet Address" ngModel required pattern="^0x[a-fA-F0-9]{40}$">
-        </div>
-        <div class="col-md-2">
-          <button class="btn btn-success" type="submit" [disabled]="!f.valid">Check Address</button>
-        </div>
-      </div>
-    </form>
-  </div>
+  <app-wallet-search></app-wallet-search>
 </div>
-<div class="container">
-  <div class="row">
-    <div class="col-md-6">
-      <h2>Wei</h2>
-      <p> {{ wei }}</p>
-    </div>
-    <div class="col-md-6">
-      <h2>Ether</h2>
-      <p> {{ ether }}</p>
-    </div>
-  </div>
-</div>
+<app-wallet-list></app-wallet-list>
+
 
