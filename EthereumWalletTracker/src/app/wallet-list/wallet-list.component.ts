@@ -8,12 +8,17 @@ import { Component, OnInit, Injectable } from '@angular/core';
 })
 @Injectable()
 export class WalletListComponent implements OnInit {
+  wallets: any[];
+  
   constructor(private walletService: WalletService) {
   }
-  wallets: any[];
 
   ngOnInit() {
-    this.wallets = this.walletService.getWallets();
+    this.walletService.getWallets()
+        .subscribe( 
+          (wallets: any[]) => {
+          this.wallets = wallets;
+    });
   }
 
 }

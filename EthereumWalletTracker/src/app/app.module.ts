@@ -1,3 +1,4 @@
+import { UtilityService } from './utility.service';
 import { EtherScanService } from './ether-scan.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -9,20 +10,24 @@ import { AppComponent } from './app.component';
 import { WalletSearchComponent } from './wallet-search/wallet-search.component';
 import { WalletListComponent } from './wallet-list/wallet-list.component';
 import { WalletService } from './wallet.service';
+import { WalletTotalsComponent } from './wallet-totals/wallet-totals.component';
+import { WalletAddComponent } from './wallet-add/wallet-add.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     WalletSearchComponent,
-    WalletListComponent
+    WalletListComponent,
+    WalletTotalsComponent,
+    WalletAddComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     FormsModule
   ],
-  providers: [EtherScanService, WalletService],
+  providers: [EtherScanService, WalletService, UtilityService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,41 +1,25 @@
 import { EtherScanService } from './ether-scan.service';
 import { Injectable, OnInit } from '@angular/core';
+import { Subject } from 'rxjs';
+import { UtilityService } from './utility.service';
 
 @Injectable()
 export class WalletService{
-  wallets : any[] = [
-    {
-      name: "Test 1",
-      address: "0xddbd2b932c763ba5b1b7ae3b362eac3e8d40121a",
-      description: "test"
-    },
-    {
-      name: "Test 2",
-      address: "0xddbd2b932c763ba5b1b7ae3b362eac3e8d40121b",
-      description: "test"
-    },
-    {
-      name: "Test 3",
-      address: "0xddbd2b932c763ba5b1b7ae3b362eac3e8d40121c",
-      description: "test"
-    }, 
-    {
-      name: "Test 4",
-      address: "0xddbd2b932c763ba5b1b7ae3b362eac3e8d40121d",
-      description: "test"
-    },
-    {
-      name: "Test 5",
-      address: "0xddbd2b932c763ba5b1b7ae3b362eac3e8d40121e",
-      description: "test"
-    },
-    {
-      name: "Test 6",
-      address: "0xddbd2b932c763ba5b1b7ae3b362eac3e8d40121f",
-      description: "test"
-    }
-  ];
-  constructor(private esService: EtherScanService) { 
+  totalEth = new Subject<number>();
+  walletSubject = new Subject<any[]>();
+  wallets : any[];
+
+  constructor(private esService: EtherScanService, private utilityService: UtilityService) { 
+    this.wallets = [
+        {
+          name: "Test 1",
+          address: "0xddbd2b932c763ba5b1b7ae3b362eac3e8d40121a"
+        },
+        {
+          name: "Test 2",
+          address: "0xddbd2b932c763ba5b1b7ae3b362eac3e8d40121b"
+        }
+      ];
     this.refreshWalletBalances();
   }
 
@@ -48,19 +32,27 @@ export class WalletService{
     .subscribe(
       (data) => {
         let results = data["result"];
+        let total = 0;
         for (var i in results){
-          this.wallets[i].ethBalance = this.convertWeiToEth(results[i].balance);
+          this.wallets[i].ethBalance = this.utilityService.convertWeiToEth(results[i].balance);
+          total += this.wallets[i].ethBalance; 
         }
+        this.totalEth.next(total);
+        this.walletSubject.next(this.wallets);
       });
   }
 
-  convertWeiToEth(weiBalance){
-    //1ETH = 10^18 Wei
-    return weiBalance / (1000000000000000000);
+  getWallets() : Subject<any[]>{
+    return this.walletSubject;
   }
 
-  getWallets(){
-    return this.wallets;
+  getTotalEth() : Subject<number>{
+    return this.totalEth;
+  }
+
+  addWallet(name: string, address: string){
+      this.wallets.push({name: name, address: address});
+      this.refreshWalletBalances();
   }
 
 }
