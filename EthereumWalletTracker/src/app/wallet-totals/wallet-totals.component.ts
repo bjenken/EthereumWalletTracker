@@ -1,5 +1,6 @@
+import { Subscription } from 'rxjs';
 import { WalletService } from './../wallet.service';
-import { Component, OnInit, Injectable } from '@angular/core';
+import { Component, OnInit, Injectable, OnDestroy } from '@angular/core';
 
 @Component({
   selector: 'app-wallet-totals',
@@ -8,16 +9,22 @@ import { Component, OnInit, Injectable } from '@angular/core';
 })
 
 @Injectable()
-export class WalletTotalsComponent implements OnInit {
+export class WalletTotalsComponent implements OnInit, OnDestroy {
   totalEth : number;
+  totalEthSubscription : Subscription;
   constructor(private walletService: WalletService) { }
 
   ngOnInit() {
-    this.walletService.getTotalEth()
+    this.totalEth = this.walletService.getTotal();
+    this.totalEthSubscription = this.walletService.updateTotal()
       .subscribe(
         (total: number) => {
           this.totalEth = total;
       });
+  }
+
+  ngOnDestroy(){
+    this.totalEthSubscription.unsubscribe();
   }
 
 }

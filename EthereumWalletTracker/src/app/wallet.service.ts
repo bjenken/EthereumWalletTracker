@@ -5,7 +5,8 @@ import { UtilityService } from './utility.service';
 
 @Injectable()
 export class WalletService{
-  totalEth = new Subject<number>();
+  totalSubject = new Subject<number>();
+  total: number = 0;
   walletSubject = new Subject<any[]>();
   wallets : any[];
 
@@ -32,22 +33,30 @@ export class WalletService{
     .subscribe(
       (data) => {
         let results = data["result"];
-        let total = 0;
+        this.total = 0;
         for (var i in results){
           this.wallets[i].ethBalance = this.utilityService.convertWeiToEth(results[i].balance);
-          total += this.wallets[i].ethBalance; 
+          this.total += this.wallets[i].ethBalance; 
         }
-        this.totalEth.next(total);
+        this.totalSubject.next(this.total);
         this.walletSubject.next(this.wallets);
       });
   }
 
-  getWallets() : Subject<any[]>{
+  getWallets() : any[]{
+    return this.wallets.slice();
+  }
+
+  updateWallets() : Subject<any[]>{
     return this.walletSubject;
   }
 
-  getTotalEth() : Subject<number>{
-    return this.totalEth;
+  updateTotal() : Subject<number>{
+    return this.totalSubject;
+  }
+
+  getTotal() : number{
+    return this.total;
   }
 
   addWallet(name: string, address: string){

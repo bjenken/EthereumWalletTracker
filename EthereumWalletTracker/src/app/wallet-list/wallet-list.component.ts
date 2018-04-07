@@ -1,5 +1,6 @@
 import { WalletService } from './../wallet.service';
-import { Component, OnInit, Injectable } from '@angular/core';
+import { Component, OnInit, Injectable, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-wallet-list',
@@ -7,18 +8,24 @@ import { Component, OnInit, Injectable } from '@angular/core';
   styleUrls: ['./wallet-list.component.css']
 })
 @Injectable()
-export class WalletListComponent implements OnInit {
+export class WalletListComponent implements OnInit, OnDestroy {
+  walletSubscription : Subscription;
   wallets: any[];
-  
+
   constructor(private walletService: WalletService) {
   }
 
   ngOnInit() {
-    this.walletService.getWallets()
+    this.wallets = this.walletService.getWallets();
+    this.walletSubscription = this.walletService.updateWallets()
         .subscribe( 
           (wallets: any[]) => {
           this.wallets = wallets;
     });
+  }
+
+  ngOnDestroy(){
+    this.walletSubscription.unsubscribe();
   }
 
 }
