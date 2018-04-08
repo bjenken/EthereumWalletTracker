@@ -1,0 +1,28 @@
+<div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-body">
+            <form (ngSubmit)="onRemoveWallet(f)" #f="ngForm">
+              <div class="row">
+                <div class="col-md-12 form-group">
+                  <label for="name">Name</label>
+                  <select  id="name" name="name" ngModel>
+                    <option *ngFor='let wallet of wallets; let i = index' [value]='i'>
+                      {{ wallet.name }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <button class="btn btn-success" type="submit" [disabled]="!f.valid">Delete</button>
+                  <button class="btn btn-danger" [routerLink]="['/']">Cancel</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

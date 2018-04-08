@@ -13,6 +13,7 @@ import { WalletListComponent } from './wallet-list/wallet-list.component';
 import { WalletService } from './wallet.service';
 import { WalletTotalsComponent } from './wallet-totals/wallet-totals.component';
 import { WalletAddComponent } from './wallet-add/wallet-add.component';
+import { WalletRemoveComponent } from './wallet-remove/wallet-remove.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { WalletAddComponent } from './wallet-add/wallet-add.component';
     WalletSearchComponent,
     WalletListComponent,
     WalletTotalsComponent,
-    WalletAddComponent
+    WalletAddComponent,
+    WalletRemoveComponent
   ],
   imports: [
     BrowserModule,

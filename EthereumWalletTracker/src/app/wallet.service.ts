@@ -64,4 +64,9 @@ export class WalletService{
       this.refreshWalletBalances();
   }
 
+  removeWallet(index: number){
+    this.wallets.splice(index);
+    this.refreshWalletBalances();
+  }
+
 }
