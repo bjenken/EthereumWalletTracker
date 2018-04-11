@@ -1,3 +1,4 @@
+import { EthplorerService } from './ethplorer.service';
 import { UtilityService } from './utility.service';
 import { EtherScanService } from './ether-scan.service';
 import { BrowserModule } from '@angular/platform-browser';
@@ -31,7 +32,7 @@ import { WalletRemoveComponent } from './wallet-remove/wallet-remove.component';
     FormsModule,
     AppRoutingModule
   ],
-  providers: [EtherScanService, WalletService, UtilityService],
+  providers: [EtherScanService, WalletService, UtilityService, EthplorerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

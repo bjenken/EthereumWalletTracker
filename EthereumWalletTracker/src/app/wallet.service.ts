@@ -1,75 +1,76 @@
+import { EthplorerService } from './ethplorer.service';
 import { EtherScanService } from './ether-scan.service';
 import { Injectable, OnInit } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 import { UtilityService } from './utility.service';
 
 @Injectable()
-export class WalletService{
+export class WalletService {
   totalSubject = new Subject<number>();
   total: number = 0;
   walletSubject = new Subject<any[]>();
-  wallets : any[];
+  wallets: any[];
 
-  constructor(private esService: EtherScanService, private utilityService: UtilityService) { 
+  constructor(private ethplorerService: EthplorerService, private utilityService: UtilityService) {
     this.wallets = [
-        {
-          name: "Test 1",
-          address: "0xddbd2b932c763ba5b1b7ae3b362eac3e8d40121a"
-        },
-        {
-          name: "Test 2",
-          address: "0xddbd2b932c763ba5b1b7ae3b362eac3e8d40121b"
-        }
-      ];
+      {
+        name: "Test 1",
+        address: "0xddbd2b932c763ba5b1b7ae3b362eac3e8d40121a"
+      },
+      {
+        name: "Test 2",
+        address: "0xddbd2b932c763ba5b1b7ae3b362eac3e8d40121b"
+      }
+    ];
     this.refreshWalletBalances();
   }
 
-  refreshWalletBalances(){
-    let walletAddresses = [];
-    for (var i in this.wallets){
-      walletAddresses.push(this.wallets[i].address);
-    }
-    if (walletAddresses.length > 0){
-      this.esService.getBalanceForEtherWallets(walletAddresses)
-      .subscribe(
-        (data) => {
-          let results = data["result"];
-          this.total = 0;
-          for (var i in results){
-            this.wallets[i].ethBalance = this.utilityService.convertWeiToEth(results[i].balance);
-            this.total += this.wallets[i].ethBalance; 
+  refreshWalletBalances() {
+    this.total = 0;
+    if (this.wallets.length > 0) {
+      var observables = [];
+      for (var i in this.wallets) {
+        observables.push(this.ethplorerService.getEtherWalletBalance(this.wallets[i].address));
+      }
+      Observable.forkJoin(observables)
+        .subscribe((result) => {
+          for(var i in result){
+            var ethResult = result[i]["ETH"];
+            this.wallets[i].ethBalance = ethResult.balance;
+            this.total += this.wallets[i].ethBalance;
           }
+          console.log(result);
           this.totalSubject.next(this.total);
           this.walletSubject.next(this.wallets);
         });
     } else {
-      this.totalSubject.next(0);
+      this.totalSubject.next(this.total = 0);
       this.walletSubject.next(this.wallets);
     }
   }
 
-  getWallets() : any[]{
+  getWallets(): any[] {
     return this.wallets.slice();
   }
 
-  updateWallets() : Subject<any[]>{
+  updateWallets(): Subject<any[]> {
     return this.walletSubject;
   }
 
-  updateTotal() : Subject<number>{
+  updateTotal(): Subject<number> {
     return this.totalSubject;
   }
 
-  getTotal() : number{
+  getTotal(): number {
     return this.total;
   }
 
-  addWallet(name: string, address: string){
-      this.wallets.push({name: name, address: address});
-      this.refreshWalletBalances();
+  addWallet(name: string, address: string) {
+    this.wallets.push({ name: name, address: address });
+    this.refreshWalletBalances();
   }
 
-  removeWallet(index: number){
+  removeWallet(index: number) {
     this.wallets.splice(index, 1);
     this.refreshWalletBalances();
   }
