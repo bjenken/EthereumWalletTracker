@@ -29,18 +29,23 @@ export class WalletService{
     for (var i in this.wallets){
       walletAddresses.push(this.wallets[i].address);
     }
-    this.esService.getBalanceForEtherWallets(walletAddresses)
-    .subscribe(
-      (data) => {
-        let results = data["result"];
-        this.total = 0;
-        for (var i in results){
-          this.wallets[i].ethBalance = this.utilityService.convertWeiToEth(results[i].balance);
-          this.total += this.wallets[i].ethBalance; 
-        }
-        this.totalSubject.next(this.total);
-        this.walletSubject.next(this.wallets);
-      });
+    if (walletAddresses.length > 0){
+      this.esService.getBalanceForEtherWallets(walletAddresses)
+      .subscribe(
+        (data) => {
+          let results = data["result"];
+          this.total = 0;
+          for (var i in results){
+            this.wallets[i].ethBalance = this.utilityService.convertWeiToEth(results[i].balance);
+            this.total += this.wallets[i].ethBalance; 
+          }
+          this.totalSubject.next(this.total);
+          this.walletSubject.next(this.wallets);
+        });
+    } else {
+      this.totalSubject.next(0);
+      this.walletSubject.next(this.wallets);
+    }
   }
 
   getWallets() : any[]{
@@ -65,7 +70,7 @@ export class WalletService{
   }
 
   removeWallet(index: number){
-    this.wallets.splice(index);
+    this.wallets.splice(index, 1);
     this.refreshWalletBalances();
   }
 

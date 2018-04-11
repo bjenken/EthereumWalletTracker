@@ -1,6 +1,7 @@
 import { WalletService } from './../wallet.service';
 import { NgForm } from '@angular/forms';
 import { Component, OnInit, Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-wallet-add',
@@ -11,7 +12,7 @@ import { Component, OnInit, Injectable } from '@angular/core';
 @Injectable()
 export class WalletAddComponent implements OnInit {
 
-  constructor(private walletService: WalletService) { }
+  constructor(private walletService: WalletService, private router: Router) { }
 
   ngOnInit() {
   }
@@ -19,6 +20,7 @@ export class WalletAddComponent implements OnInit {
   onAddWallet(f: NgForm){
     const value = f.value;
     this.walletService.addWallet(value.name, value.address);
+    this.router.navigate(['/']);
   }
 
 }
