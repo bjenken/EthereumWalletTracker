@@ -1,3 +1,4 @@
+import { Wallet } from './../wallet.data';
 import { WalletService } from './../wallet.service';
 import { Component, OnInit, Injectable, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
@@ -10,7 +11,7 @@ import { Subscription } from 'rxjs';
 @Injectable()
 export class WalletListComponent implements OnInit, OnDestroy {
   walletSubscription : Subscription;
-  wallets: any[];
+  wallets: Wallet[];
 
   constructor(private walletService: WalletService) {
   }
@@ -19,7 +20,7 @@ export class WalletListComponent implements OnInit, OnDestroy {
     this.wallets = this.walletService.getWallets();
     this.walletSubscription = this.walletService.updateWallets()
         .subscribe( 
-          (wallets: any[]) => {
+          (wallets: Wallet[]) => {
           this.wallets = wallets;
     });
   }

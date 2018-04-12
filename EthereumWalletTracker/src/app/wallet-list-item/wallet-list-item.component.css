@@ -1,0 +1,4 @@
+.tokenDisplay{
+    max-height: 80px;
+    overflow-y:scroll; 
+}

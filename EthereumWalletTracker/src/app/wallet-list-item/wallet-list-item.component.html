@@ -1,0 +1,14 @@
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">{{ wallet.name }}</h5>
+    <h6 class="card-subtitle mb-2 text-muted">Ξ{{ wallet.ethBalance }}</h6>
+    <p class="card-text">{{ wallet.address }}</p>
+  </div>
+  <div class="card-footer">
+    <ul class="list-group tokenDisplay" *ngIf="wallet.tokens">
+      <li class="list-group-item" *ngFor="let token of wallet.tokens">
+        {{ token.symbol }}: {{token.balance}}
+      </li>
+    </ul>
+  </div>
+</div>

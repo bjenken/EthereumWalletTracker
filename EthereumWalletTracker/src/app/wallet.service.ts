@@ -1,3 +1,5 @@
+import { Token } from './token.data';
+import { Wallet } from './wallet.data';
 import { EthplorerService } from './ethplorer.service';
 import { EtherScanService } from './ether-scan.service';
 import { Injectable, OnInit } from '@angular/core';
@@ -8,20 +10,13 @@ import { UtilityService } from './utility.service';
 export class WalletService {
   totalSubject = new Subject<number>();
   total: number = 0;
-  walletSubject = new Subject<any[]>();
-  wallets: any[];
+  walletSubject = new Subject<Wallet[]>();
+  wallets: Wallet[];
 
   constructor(private ethplorerService: EthplorerService, private utilityService: UtilityService) {
-    this.wallets = [
-      {
-        name: "Test 1",
-        address: "0xddbd2b932c763ba5b1b7ae3b362eac3e8d40121a"
-      },
-      {
-        name: "Test 2",
-        address: "0xddbd2b932c763ba5b1b7ae3b362eac3e8d40121b"
-      }
-    ];
+    this.wallets = [new Wallet("Test 1", "0xddbd2b932c763ba5b1b7ae3b362eac3e8d40121a"), 
+                    new Wallet("Test 2", "0xddbd2b932c763ba5b1b7ae3b362eac3e8d40121b")];
+     
     this.refreshWalletBalances();
   }
 
@@ -38,8 +33,20 @@ export class WalletService {
             var ethResult = result[i]["ETH"];
             this.wallets[i].ethBalance = ethResult.balance;
             this.total += this.wallets[i].ethBalance;
+
+            if (result[i]["tokens"]){
+              var tokens = [];
+              for (var j in result[i]["tokens"]){
+                var newToken = new Token();
+                newToken.name = result[i]["tokens"][j].tokenInfo.name;
+                newToken.symbol = result[i]["tokens"][j].tokenInfo.symbol;
+                newToken.balance  = result[i]["tokens"][j].balance / Math.pow(10, result[i]["tokens"][j].tokenInfo.decimals);
+                tokens.push(newToken);
+              }
+              this.wallets[i].tokens = tokens;
+            }
           }
-          console.log(result);
+          console.log(this.wallets);
           this.totalSubject.next(this.total);
           this.walletSubject.next(this.wallets);
         });
@@ -66,7 +73,7 @@ export class WalletService {
   }
 
   addWallet(name: string, address: string) {
-    this.wallets.push({ name: name, address: address });
+    this.wallets.push(new Wallet(name, address));
     this.refreshWalletBalances();
   }
 

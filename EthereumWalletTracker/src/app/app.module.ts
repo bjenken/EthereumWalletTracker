@@ -1,3 +1,4 @@
+import { WalletListItemComponent } from './wallet-list-item/wallet-list-item.component';
 import { EthplorerService } from './ethplorer.service';
 import { UtilityService } from './utility.service';
 import { EtherScanService } from './ether-scan.service';
@@ -24,7 +25,8 @@ import { WalletRemoveComponent } from './wallet-remove/wallet-remove.component';
     WalletListComponent,
     WalletTotalsComponent,
     WalletAddComponent,
-    WalletRemoveComponent
+    WalletRemoveComponent,
+    WalletListItemComponent
   ],
   imports: [
     BrowserModule,
