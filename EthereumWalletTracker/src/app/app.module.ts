@@ -16,6 +16,7 @@ import { WalletService } from './wallet.service';
 import { WalletTotalsComponent } from './wallet-totals/wallet-totals.component';
 import { WalletAddComponent } from './wallet-add/wallet-add.component';
 import { WalletRemoveComponent } from './wallet-remove/wallet-remove.component';
+import { WalletDetailsComponent } from './wallet-details/wallet-details.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { WalletRemoveComponent } from './wallet-remove/wallet-remove.component';
     WalletTotalsComponent,
     WalletAddComponent,
     WalletRemoveComponent,
-    WalletListItemComponent
+    WalletListItemComponent,
+    WalletDetailsComponent
   ],
   imports: [
     BrowserModule,
