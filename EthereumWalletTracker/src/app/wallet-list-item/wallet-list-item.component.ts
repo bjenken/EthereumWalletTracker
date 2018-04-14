@@ -8,8 +8,8 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class WalletListItemComponent implements OnInit {
   @Input() wallet : Wallet;
+  @Input() walletId : number;
 
   ngOnInit() {
   }
-
 }

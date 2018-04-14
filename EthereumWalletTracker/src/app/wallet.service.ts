@@ -60,6 +60,10 @@ export class WalletService {
     return this.wallets.slice();
   }
 
+  getWallet(index: number){
+    return (this.wallets.slice())[index];
+  }
+
   updateWallets(): Subject<any[]> {
     return this.walletSubject;
   }

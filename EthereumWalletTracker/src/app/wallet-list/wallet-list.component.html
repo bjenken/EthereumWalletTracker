@@ -19,8 +19,8 @@
 <hr>
 <div class="container">
   <div class="row">
-    <div class="col-md-4" *ngFor="let walletElement of wallets">
-      <app-wallet-list-item [wallet]="walletElement"></app-wallet-list-item>
+    <div class="col-md-4" *ngFor="let walletElement of wallets; let i = index">
+      <app-wallet-list-item [wallet]="walletElement" [walletId]="i"></app-wallet-list-item>
     </div>
   </div>
 </div>

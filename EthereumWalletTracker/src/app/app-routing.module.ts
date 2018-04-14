@@ -10,8 +10,7 @@ const appRoutes: Routes = [
     {path: 'wallets', component: WalletListComponent},
     {path: 'add-wallet', component: WalletAddComponent},
     {path: 'remove-wallet', component: WalletRemoveComponent},
-    {path: 'wallet-details', component: WalletDetailsComponent},
-
+    {path: 'wallet-details/:id', component: WalletDetailsComponent}
 ];
 
 @NgModule({
