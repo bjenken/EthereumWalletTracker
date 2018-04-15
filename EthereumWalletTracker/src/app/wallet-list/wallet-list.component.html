@@ -1,26 +1,26 @@
-<div class="container">
-    <div class="row">
-      <div class="col-md-4 mx-auto">
-        <div class="card card-body">
-          <button class="btn btn-danger" [routerLink]="['/remove-wallet']">
-            Remove Wallet
-          </button>
-        </div>
-      </div>
-      <div class="col-md-4 mx-auto">
-          <div class="card card-body">
-            <button class="btn btn-success" [routerLink]="['/add-wallet']">
-              Add Wallet
-            </button>
-          </div>
-        </div>
+<div class="row">
+  <div class="col-md-4 mx-auto">
+    <div class="card card-body">
+      <button class="btn btn-danger" [routerLink]="['/remove-wallet']">
+        Remove Wallet
+      </button>
     </div>
+  </div>
+  <div class="col-md-4 mx-auto">
+    <div class="card card-body">
+      <button class="btn btn-success" [routerLink]="['/add-wallet']">
+        Add Wallet
+      </button>
+    </div>
+  </div>
 </div>
 <hr>
-<div class="container">
-  <div class="row">
-    <div class="col-md-4" *ngFor="let walletElement of wallets; let i = index">
-      <app-wallet-list-item [wallet]="walletElement" [walletId]="i"></app-wallet-list-item>
+<div class="card card-inverse bg-light">
+  <div class="card-body ">
+    <div class="row">
+      <div class="col-md-4" *ngFor="let walletElement of wallets; let i = index">
+        <app-wallet-list-item [wallet]="walletElement" [walletId]="i"></app-wallet-list-item>
+      </div>
     </div>
   </div>
 </div>

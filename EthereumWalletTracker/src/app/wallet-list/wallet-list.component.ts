@@ -26,6 +26,7 @@ export class WalletListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(){
+    console.log ("DESRTORYED");
     this.walletSubscription.unsubscribe();
   }
 

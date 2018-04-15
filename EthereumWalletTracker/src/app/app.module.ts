@@ -1,3 +1,4 @@
+import { FireBaseService } from './fire-base.service';
 import { WalletListItemComponent } from './wallet-list-item/wallet-list-item.component';
 import { EthplorerService } from './ethplorer.service';
 import { UtilityService } from './utility.service';
@@ -36,7 +37,7 @@ import { WalletDetailsComponent } from './wallet-details/wallet-details.componen
     FormsModule,
     AppRoutingModule
   ],
-  providers: [EtherScanService, WalletService, UtilityService, EthplorerService],
+  providers: [EtherScanService, WalletService, UtilityService, EthplorerService, FireBaseService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

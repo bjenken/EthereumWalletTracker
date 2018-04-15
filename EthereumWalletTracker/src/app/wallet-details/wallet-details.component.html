@@ -16,7 +16,7 @@
           </div>
         </div>
         <div class="float-md-right">
-            <button class="btn btn-primary" [routerLink]="['/wallets']">Return</button>
+          <button class="btn btn-primary" [routerLink]="['/wallets']">Return</button>
         </div>
       </div>
     </div>
@@ -25,18 +25,16 @@
 <div class="card card-inverse bg-light">
   <div class="card-body ">
     <div class="row">
-        <div class="col-md-4" *ngFor="let token of wallet.tokens">
-            <div class="card">
-                <div class="card-body">
-                          <h5 class="card-title">{{ token.name }}</h5>
-                            <h6 class="card-subtitle text-muted">
-                             {{ token.symbol }} {{ token.balance }}
-                            </h6>
-                </div>
-              </div>
+      <div class="col-md-4" *ngFor="let token of wallet.tokens">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">{{ token.name }}</h5>
+            <h6 class="card-subtitle text-muted">
+              {{ token.symbol }} {{ token.balance }}
+            </h6>
+          </div>
         </div>
+      </div>
     </div>
-    
-    
   </div>
 </div>
