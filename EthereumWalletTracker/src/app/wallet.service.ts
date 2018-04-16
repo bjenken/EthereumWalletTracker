@@ -28,7 +28,6 @@ export class WalletService {
   }
 
   refreshWalletBalances() {
-    this.total = 0;
     if (this.wallets.length > 0) {
       var observables = [];
       for (var i in this.wallets) {
@@ -36,6 +35,7 @@ export class WalletService {
       }
       Observable.forkJoin(observables)
         .subscribe((result) => {
+          this.total = 0;
           for(var i in result){
             var ethResult = result[i]["ETH"];
             this.wallets[i].ethBalance = ethResult.balance;
@@ -57,12 +57,13 @@ export class WalletService {
           this.walletSubject.next(this.wallets);
         });
     } else {
-      this.totalSubject.next(this.total = 0);
+      this.total = 0;
+      this.totalSubject.next(this.total);
       this.walletSubject.next(this.wallets);
     }
   }
 
-  getWallets(): any[] {
+  getWallets(): Wallet[] {
     return this.wallets.slice();
   }
 
@@ -70,8 +71,16 @@ export class WalletService {
     return (this.wallets.slice())[index];
   }
 
-  updateWallets(): Subject<any[]> {
+  getWalletSubscription(): Observable<Wallet[]> {
     return this.walletSubject;
+  }
+
+  refreshWallets(){
+    this.refreshWalletBalances();
+  }
+
+  updateWallets(){
+    this.walletSubject.next(this.wallets);
   }
 
   updateTotal(): Subject<number> {

@@ -16,7 +16,8 @@
 </div>
 <hr>
 <div class="card card-inverse bg-light">
-  <div class="card-body ">
+  <div class="loader" *ngIf="!isLoaded">Loading...</div>
+  <div class="card-body">
     <div class="row">
       <div class="col-md-4" *ngFor="let walletElement of wallets; let i = index">
         <app-wallet-list-item [wallet]="walletElement" [walletId]="i"></app-wallet-list-item>

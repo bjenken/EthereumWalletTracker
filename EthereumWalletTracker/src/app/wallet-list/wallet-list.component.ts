@@ -12,21 +12,24 @@ import { Subscription } from 'rxjs';
 export class WalletListComponent implements OnInit, OnDestroy {
   walletSubscription : Subscription;
   wallets: Wallet[];
+  isLoaded:boolean;
 
   constructor(private walletService: WalletService) {
   }
 
   ngOnInit() {
-    this.wallets = this.walletService.getWallets();
-    this.walletSubscription = this.walletService.updateWallets()
+    this.isLoaded = false;
+    this.walletSubscription = this.walletService.getWalletSubscription()
         .subscribe( 
           (wallets: Wallet[]) => {
           this.wallets = wallets;
+          this.isLoaded = true;
     });
+    //the refresh will trigger the wallet subject in the case that the wallet service is already initialized
+    this.walletService.refreshWallets();
   }
 
   ngOnDestroy(){
-    console.log ("DESRTORYED");
     this.walletSubscription.unsubscribe();
   }
 

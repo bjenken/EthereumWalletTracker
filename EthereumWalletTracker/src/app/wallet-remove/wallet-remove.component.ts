@@ -11,17 +11,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./wallet-remove.component.css']
 })
 export class WalletRemoveComponent implements OnInit {
-  walletSubscription : Subscription;
   wallets : any[];
   constructor(private walletService: WalletService, private router: Router) { }
 
   ngOnInit() {
     this.wallets = this.walletService.getWallets();
-    this.walletSubscription = this.walletService.updateWallets()
-      .subscribe(
-        (wallets: any[]) => {
-          this.wallets = wallets;
-        });
   }
 
   onRemoveWallet(f: NgForm){
