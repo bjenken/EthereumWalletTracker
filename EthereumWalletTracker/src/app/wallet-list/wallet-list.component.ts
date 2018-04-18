@@ -1,6 +1,7 @@
+import { WalletRemoveComponent } from './../wallet-remove/wallet-remove.component';
 import { Wallet } from './../wallet.data';
 import { WalletService } from './../wallet.service';
-import { Component, OnInit, Injectable, OnDestroy } from '@angular/core';
+import { Component, OnInit, Injectable, OnDestroy, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 @Component({

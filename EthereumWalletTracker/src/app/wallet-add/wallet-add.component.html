@@ -1,34 +1,33 @@
-<div class="container">
-  <div class="row">
-    <div class="col-md-6">
-      <div class="card">
-        <div class="card-body">
-          <form (ngSubmit)="onAddWallet(f)" #f="ngForm">
-            <div class="row">
-              <div class="col-md-12 form-group">
-                <label for="name">Name</label>
-                <input type="text" id="name" class="form-control" name="name" ngModel required>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-12 form-group">
-                <label for="amount">Address</label>
-                <input type="text" id="address" class="form-control" name="address" ngModel required pattern="^0x[a-fA-F0-9]{40}$">
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-12">
-                <button class="btn btn-success" type="submit" [disabled]="!f.valid">
-                  Add
-                </button>
-                <button class="btn btn-danger" [routerLink]="['/']">
-                  Cancel
-                </button>
-              </div>
-            </div>
-          </form>
+<div class="card card-body">
+  <button class="btn btn-success" (click)="open(addWalletContent)">Add Wallet</button>
+</div>
+<ng-template #addWalletContent let-c="close" let-d="dismiss">
+  <form (ngSubmit)="onAddWallet(f)" #f="ngForm">
+    <div class="modal-header">
+      <h4 class="modal-title">Add Wallet</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" class="form-control" name="name" ngModel required>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 form-group">
+            <label for="amount">Address</label>
+            <input type="text" id="address" class="form-control" name="address" ngModel required pattern="^0x[a-fA-F0-9]{40}$">
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</div>
+    <div class="modal-footer">
+      <button class="btn btn-success" type="submit" [disabled]="!f.valid">Add</button>
+      <button type="button" class="btn btn-light" (click)="c('Close click')">Close</button>
+    </div>
+  </form>
+</ng-template>

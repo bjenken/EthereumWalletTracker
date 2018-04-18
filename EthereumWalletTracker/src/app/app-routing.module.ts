@@ -8,8 +8,6 @@ import { Routes, RouterModule } from '@angular/router';
 const appRoutes: Routes = [
     {path: '', redirectTo: '/wallets', pathMatch: 'full'},
     {path: 'wallets', component: WalletListComponent},
-    {path: 'add-wallet', component: WalletAddComponent},
-    {path: 'remove-wallet', component: WalletRemoveComponent},
     {path: 'wallet-details/:id', component: WalletDetailsComponent}
 ];
 

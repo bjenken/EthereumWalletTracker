@@ -1,32 +1,31 @@
-<div class="container">
-    <div class="row">
-      <div class="col-md-6">
-        <div class="card">
-          <div class="card-body">
-            <form (ngSubmit)="onRemoveWallet(f)" #f="ngForm">
-              <div class="row">
-                <div class="col-md-12 form-group">
-                  <label for="name">Name</label>
-                  <select  id="name" name="name" class="form-control" ngModel>
-                    <option *ngFor='let wallet of wallets; let i = index' [value]='i'>
-                      {{ wallet.name }}
-                    </option>
-                  </select>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-12">
-                  <button class="btn btn-success" type="submit" [disabled]="!f.valid" >
-                    Remove
-                  </button>
-                  <button class="btn btn-danger" [routerLink]="['/']">
-                    Cancel
-                  </button>
-                </div>
-              </div>
-            </form>
-          </div>
+<!-- <div class="col-md-12 mx-auto"> -->
+  <div class="card card-body">
+    <button class="btn btn-danger" (click)="open(removeWalletContent)">Remove Wallet</button>
+  </div>
+<!-- </div> -->
+<ng-template #removeWalletContent let-c="close" let-d="dismiss">
+  <form (ngSubmit)="onRemoveWallet(f)" #f="ngForm">
+    <div class="modal-header">
+      <h4 class="modal-title">Remove Wallet</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="container">
+        <div class="col-md-12 form-group">
+          <label for="name">Name</label>
+          <select id="name" name="name" class="form-control" ngModel>
+            <option *ngFor='let wallet of wallets; let i = index' [value]='i'>
+              {{ wallet.name }}
+            </option>
+          </select>
         </div>
       </div>
     </div>
-  </div>
+    <div class="modal-footer">
+      <button class="btn btn-success" type="submit" [disabled]="!f.valid">Remove</button>
+      <button type="button" class="btn btn-light" (click)="c('Close click')">Close</button>
+    </div>
+  </form>
+</ng-template>

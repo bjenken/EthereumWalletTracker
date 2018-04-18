@@ -1,3 +1,4 @@
+import { NgbModal, NgbModule, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FireBaseService } from './fire-base.service';
 import { WalletListItemComponent } from './wallet-list-item/wallet-list-item.component';
 import { EthplorerService } from './ethplorer.service';
@@ -35,9 +36,10 @@ import { WalletDetailsComponent } from './wallet-details/wallet-details.componen
     BrowserModule,
     HttpClientModule,
     FormsModule,
-    AppRoutingModule
+    AppRoutingModule, 
+    NgbModule.forRoot()
   ],
-  providers: [EtherScanService, WalletService, UtilityService, EthplorerService, FireBaseService],
+  providers: [EtherScanService, WalletService, UtilityService, EthplorerService, FireBaseService, NgbModal, NgbActiveModal],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
