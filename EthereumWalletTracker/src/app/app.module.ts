@@ -1,3 +1,4 @@
+import { AuthService } from './auth.service';
 import { NgbModal, NgbModule, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FireBaseService } from './fire-base.service';
 import { WalletListItemComponent } from './wallet-list-item/wallet-list-item.component';
@@ -19,6 +20,7 @@ import { WalletTotalsComponent } from './wallet-totals/wallet-totals.component';
 import { WalletAddComponent } from './wallet-add/wallet-add.component';
 import { WalletRemoveComponent } from './wallet-remove/wallet-remove.component';
 import { WalletDetailsComponent } from './wallet-details/wallet-details.component';
+import { SignupComponent } from './signup/signup.component';
 
 
 @NgModule({
@@ -30,7 +32,8 @@ import { WalletDetailsComponent } from './wallet-details/wallet-details.componen
     WalletAddComponent,
     WalletRemoveComponent,
     WalletListItemComponent,
-    WalletDetailsComponent
+    WalletDetailsComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +42,7 @@ import { WalletDetailsComponent } from './wallet-details/wallet-details.componen
     AppRoutingModule, 
     NgbModule.forRoot()
   ],
-  providers: [EtherScanService, WalletService, UtilityService, EthplorerService, FireBaseService, NgbModal, NgbActiveModal],
+  providers: [EtherScanService, WalletService, UtilityService, EthplorerService, FireBaseService, NgbModal, NgbActiveModal, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
