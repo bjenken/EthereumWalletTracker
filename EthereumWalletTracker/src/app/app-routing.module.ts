@@ -1,3 +1,4 @@
+import { SigninComponent } from './signin/signin.component';
 import { SignupComponent } from './signup/signup.component';
 import { WalletDetailsComponent } from './wallet-details/wallet-details.component';
 import { WalletRemoveComponent } from './wallet-remove/wallet-remove.component';
@@ -10,7 +11,8 @@ const appRoutes: Routes = [
     {path: '', redirectTo: '/wallets', pathMatch: 'full'},
     {path: 'wallets', component: WalletListComponent},
     {path: 'wallet-details/:id', component: WalletDetailsComponent},
-    {path: 'signup', component: SignupComponent}
+    {path: 'signup', component: SignupComponent},
+    {path: 'signin', component: SigninComponent}
 ];
 
 @NgModule({

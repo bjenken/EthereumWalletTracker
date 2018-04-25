@@ -21,6 +21,8 @@ import { WalletAddComponent } from './wallet-add/wallet-add.component';
 import { WalletRemoveComponent } from './wallet-remove/wallet-remove.component';
 import { WalletDetailsComponent } from './wallet-details/wallet-details.component';
 import { SignupComponent } from './signup/signup.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { SigninComponent } from './signin/signin.component';
 
 
 @NgModule({
@@ -33,7 +35,9 @@ import { SignupComponent } from './signup/signup.component';
     WalletRemoveComponent,
     WalletListItemComponent,
     WalletDetailsComponent,
-    SignupComponent
+    SignupComponent,
+    NavbarComponent,
+    SigninComponent
   ],
   imports: [
     BrowserModule,
