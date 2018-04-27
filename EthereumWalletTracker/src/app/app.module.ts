@@ -1,3 +1,4 @@
+import { AuthGuardService } from './auth-guard.service';
 import { AuthService } from './auth.service';
 import { NgbModal, NgbModule, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FireBaseService } from './fire-base.service';
@@ -46,7 +47,7 @@ import { SigninComponent } from './signin/signin.component';
     AppRoutingModule, 
     NgbModule.forRoot()
   ],
-  providers: [EtherScanService, WalletService, UtilityService, EthplorerService, FireBaseService, NgbModal, NgbActiveModal, AuthService],
+  providers: [EtherScanService, WalletService, UtilityService, EthplorerService, FireBaseService, NgbModal, NgbActiveModal, AuthService, AuthGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

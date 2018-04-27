@@ -1,3 +1,4 @@
+import { AuthService } from './auth.service';
 import { FireBaseService } from './fire-base.service';
 import { Token } from './token.data';
 import { Wallet } from './wallet.data';
@@ -13,13 +14,28 @@ export class WalletService {
   total: number = 0;
   walletSubject = new Subject<Wallet[]>();
   wallets: Wallet[];
+  loginSubscription;
 
-  constructor(private ethplorerService: EthplorerService, private utilityService: UtilityService, private fireBaseService: FireBaseService) {
+  constructor(private ethplorerService: EthplorerService, private utilityService: UtilityService, private fireBaseService: FireBaseService, private authService: AuthService) {
     // this.wallets = [new Wallet("Test 1", "0xddbd2b932c763ba5b1b7ae3b362eac3e8d40121a"), 
     //                 new Wallet("Test 2", "0xddbd2b932c763ba5b1b7ae3b362eac3e8d40121b")];
     this.wallets = [];
+    this.loginSubscription = this.authService.getLoginSubscription()
+      .subscribe( (isLoggedIn) => {
+        console.log(isLoggedIn);
+        if (isLoggedIn == true){
+          this._fetchWallets();
+        } else {
+          this.wallets = [];
+          this.total = 0;
+        }
+    });
+    this._fetchWallets();
+  }
+  _fetchWallets(){
     var walletPromise = this.fireBaseService.getAllWallets();
     walletPromise.then( (wallets) => {
+      console.log(wallets);
       for (var id in wallets){
         this.wallets.push(wallets[id]);
       }

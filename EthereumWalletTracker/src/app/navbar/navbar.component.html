@@ -2,8 +2,12 @@
   <a class="navbar-brand" [routerLink]="['/']">Ethereum Wallet Tracker</a>
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav">
+      <ng-template [ngIf]="!authService.isAuthenticated()">
         <a class="nav-item nav-link active" [routerLink]="['/signup']">Register</a>
         <a class="nav-item nav-link active" [routerLink]="['/signin']">Log In</a>
+      </ng-template>
+      <a style="cursor: pointer;" class="nav-item nav-link active" (click)="onLogout()" *ngIf="authService.isAuthenticated()">Logout</a>
+      <a class="nav-item nav-link active" *ngIf="authService.isAuthenticated()">{{ authService.getUserEmail() }}</a>
     </div>
   </div>
 </nav>
