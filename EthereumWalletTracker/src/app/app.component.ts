@@ -14,10 +14,6 @@ export class AppComponent implements OnInit{
   constructor(){ }
 
   ngOnInit(){
-    firebase.initializeApp({
-      apiKey: "AIzaSyAGCUnu2fOnPWoKS9_dAhnnP3atZkG7okc",
-      authDomain: "eth-wallet-tracker.firebaseapp.com",
-    });
   }
   convertWeiToEth(weiBalance){
     //1ETH = 10^18 Wei

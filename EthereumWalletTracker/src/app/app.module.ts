@@ -24,6 +24,10 @@ import { WalletDetailsComponent } from './wallet-details/wallet-details.componen
 import { SignupComponent } from './signup/signup.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SigninComponent } from './signin/signin.component';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+import { environment } from '../environments/environment';
 
 
 @NgModule({
@@ -38,14 +42,17 @@ import { SigninComponent } from './signin/signin.component';
     WalletDetailsComponent,
     SignupComponent,
     NavbarComponent,
-    SigninComponent
+    SigninComponent, 
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     FormsModule,
     AppRoutingModule, 
-    NgbModule.forRoot()
+    NgbModule.forRoot(), 
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule, 
+    AngularFireAuthModule,
   ],
   providers: [EtherScanService, WalletService, UtilityService, EthplorerService, FireBaseService, NgbModal, NgbActiveModal, AuthService, AuthGuardService],
   bootstrap: [AppComponent]

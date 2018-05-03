@@ -20,17 +20,18 @@ export class WalletService {
     // this.wallets = [new Wallet("Test 1", "0xddbd2b932c763ba5b1b7ae3b362eac3e8d40121a"), 
     //                 new Wallet("Test 2", "0xddbd2b932c763ba5b1b7ae3b362eac3e8d40121b")];
     this.wallets = [];
-    this.loginSubscription = this.authService.getLoginSubscription()
-      .subscribe( (isLoggedIn) => {
-        console.log(isLoggedIn);
-        if (isLoggedIn == true){
-          this._fetchWallets();
-        } else {
-          this.wallets = [];
-          this.total = 0;
-        }
-    });
-    this._fetchWallets();
+
+    // this.loginSubscription = this.authService.getLoginSubscription()
+    //   .subscribe( (isLoggedIn) => {
+    //     console.log(isLoggedIn);
+    //     if (isLoggedIn == true){
+    //       this._fetchWallets();
+    //     } else {
+    //       this.wallets = [];
+    //       this.total = 0;
+    //     }
+    // });
+     this._fetchWallets();
   }
   _fetchWallets(){
     var walletPromise = this.fireBaseService.getAllWallets();

@@ -1,8 +1,8 @@
 import { Router } from '@angular/router';
-import * as firebase from 'firebase';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { Observable } from 'rxjs/Observable';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 @Injectable()
 export class AuthService {
@@ -10,80 +10,51 @@ export class AuthService {
   userEmail: string;
   uid: string;
   loggedIn = new Subject<boolean>();
+  authState: any = null;
 
-  constructor(private router: Router) { }
+  constructor(private afAuth: AngularFireAuth, private router: Router) { }
 
-  signupUser(email: string, password: string) {
-    firebase.auth().createUserWithEmailAndPassword(email, password)
-      .then(
-        response => {
-          this.signinUser(email, password);
-        }
-      )
-      .catch(
-        error => console.log(error)
-      );
+  signupUser(email:string, password:string) {
+    return this.afAuth.auth.createUserWithEmailAndPassword(email, password)
+      .then((user) => {
+        this.authState = user
+        // this.updateUserData()
+      })
+      .catch(error => console.log(error));
   }
 
-  signinUser(email: string, password: string) {
-    firebase.auth().signInWithEmailAndPassword(email, password)
-      .then(
-        response => {
-          this.router.navigate(['/']);
-          this.uid = firebase.auth().currentUser.uid;
-          this.userEmail = firebase.auth().currentUser.email;
-          firebase.auth().currentUser.getToken()
-            .then(
-              (token: string) => {
-                this.token = token;
-                console.log("LOGGED IN TRUE");
-                this.loggedIn.next(true);
-              }
-            )
-        }
-      )
-      .catch(
-        error => console.log(error)
-      );
+  signinUser(email:string, password:string) {
+    return this.afAuth.auth.signInWithEmailAndPassword(email, password)
+      .then((user) => {
+        this.authState = user;
+        // this.updateUserData()
+      })
+      .catch(error => console.log(error));
   }
 
-  logout() {
-    firebase.auth().signOut()
-    .then( response => {
-      this.loggedIn.next(false);
-      this.token = null;
-      this.uid = null;
-      this.userEmail = null;
-      this.router.navigate(['/']);
+  logout(): any {
+    return this.afAuth.auth.signOut().then( (data) => {
+      this.authState = null;
     });
-  
   }
 
-  getToken() {
-    this.uid = firebase.auth().currentUser.uid;
-    this.userEmail = firebase.auth().currentUser.email;
-    firebase.auth().currentUser.getToken()
-      .then(
-        (token: string) => {
-          this.token = token
-        }
-      );
-    return this.token;
+  getLoginSubscription(): any {
+    return this.afAuth.authState
   }
 
-  getLoginSubscription(): Observable<boolean> {
-    return this.loggedIn;
+  getUid(): string {
+    return this.authenticated ? this.authState.uid : '';
+  }
+
+  get authenticated(): boolean {
+    return this.authState !== null;
   }
 
   getUserEmail(){
-    return this.userEmail;
-  }
-
-  getUid(){
-    return this.uid;
+    return this.authenticated ? this.authState.userEmail : '';
   }
 
   isAuthenticated() {
-    return this.token != null;
+    return this.authState !== null;
   }
 }
