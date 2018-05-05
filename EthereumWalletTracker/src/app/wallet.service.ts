@@ -1,3 +1,4 @@
+import { AngularFireDatabase } from 'angularfire2/database';
 import { AuthService } from './auth.service';
 import { FireBaseService } from './fire-base.service';
 import { Token } from './token.data';
@@ -31,17 +32,24 @@ export class WalletService {
     //       this.total = 0;
     //     }
     // });
-     this._fetchWallets();
+    //  this._fetchWallets();
   }
   _fetchWallets(){
-    var walletPromise = this.fireBaseService.getAllWallets();
-    walletPromise.then( (wallets) => {
-      console.log(wallets);
-      for (var id in wallets){
-        this.wallets.push(wallets[id]);
-      }
-      this.refreshWalletBalances();
+    var walletPromise = this.fireBaseService.getAllWallets().snapshotChanges()
+      .subscribe( (ref) => {
+        this.wallets = [];
+        for (var i in ref){
+          this.wallets.push(ref[i].payload.val());
+        }
+        this.refreshWalletBalances();
     });
+    // walletPromise.valueChanges( (wallets) => {
+    //   console.log(wallets);
+    //   for (var id in wallets){
+    //     this.wallets.push(wallets[id]);
+    //   }
+    //   this.refreshWalletBalances();
+    // });
   }
 
   refreshWalletBalances() {
@@ -81,6 +89,7 @@ export class WalletService {
   }
 
   getWallets(): Wallet[] {
+    this._fetchWallets();
     return this.wallets.slice();
   }
 

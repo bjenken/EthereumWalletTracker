@@ -24,7 +24,8 @@ import { WalletDetailsComponent } from './wallet-details/wallet-details.componen
 import { SignupComponent } from './signup/signup.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SigninComponent } from './signin/signin.component';
-import { AngularFireModule } from 'angularfire2';
+import { AngularFireModule} from 'angularfire2';
+import { AngularFireDatabase, AngularFireList  } from 'angularfire2/database';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { environment } from '../environments/environment';
@@ -54,7 +55,7 @@ import { environment } from '../environments/environment';
     AngularFirestoreModule, 
     AngularFireAuthModule,
   ],
-  providers: [EtherScanService, WalletService, UtilityService, EthplorerService, FireBaseService, NgbModal, NgbActiveModal, AuthService, AuthGuardService],
+  providers: [EtherScanService, WalletService, UtilityService, EthplorerService, FireBaseService, NgbModal, NgbActiveModal, AuthService, AuthGuardService, AngularFireDatabase],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
