@@ -39,7 +39,7 @@ export class AuthService {
   }
 
   getLoginSubscription(): any {
-    return this.afAuth.authState
+    return this.afAuth.authState;
   }
 
   getUid(): string {

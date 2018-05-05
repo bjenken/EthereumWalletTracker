@@ -16,26 +16,26 @@ export class WalletService {
   walletSubject = new Subject<Wallet[]>();
   wallets: Wallet[];
   loginSubscription;
+  fireBaseSub;
 
   constructor(private ethplorerService: EthplorerService, private utilityService: UtilityService, private fireBaseService: FireBaseService, private authService: AuthService) {
     // this.wallets = [new Wallet("Test 1", "0xddbd2b932c763ba5b1b7ae3b362eac3e8d40121a"), 
     //                 new Wallet("Test 2", "0xddbd2b932c763ba5b1b7ae3b362eac3e8d40121b")];
     this.wallets = [];
 
-    // this.loginSubscription = this.authService.getLoginSubscription()
-    //   .subscribe( (isLoggedIn) => {
-    //     console.log(isLoggedIn);
-    //     if (isLoggedIn == true){
-    //       this._fetchWallets();
-    //     } else {
-    //       this.wallets = [];
-    //       this.total = 0;
-    //     }
-    // });
-    //  this._fetchWallets();
+    this.loginSubscription = this.authService.getLoginSubscription()
+      .subscribe( (isLoggedIn) => {
+        if (isLoggedIn){
+          this._fetchWallets();
+        } else {
+          this.fireBaseSub.unsubscribe();
+          this.wallets = [];
+          this.total = 0;
+        }
+    });
   }
   _fetchWallets(){
-    var walletPromise = this.fireBaseService.getAllWallets().snapshotChanges()
+    this.fireBaseSub = this.fireBaseService.getAllWallets().snapshotChanges()
       .subscribe( (ref) => {
         this.wallets = [];
         for (var i in ref){
@@ -43,13 +43,6 @@ export class WalletService {
         }
         this.refreshWalletBalances();
     });
-    // walletPromise.valueChanges( (wallets) => {
-    //   console.log(wallets);
-    //   for (var id in wallets){
-    //     this.wallets.push(wallets[id]);
-    //   }
-    //   this.refreshWalletBalances();
-    // });
   }
 
   refreshWalletBalances() {
@@ -89,7 +82,6 @@ export class WalletService {
   }
 
   getWallets(): Wallet[] {
-    this._fetchWallets();
     return this.wallets.slice();
   }
 
