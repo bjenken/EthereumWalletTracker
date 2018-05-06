@@ -111,15 +111,15 @@ export class WalletService {
 
   addWallet(name: string, address: string) {
     var newWallet = new Wallet(name, address);
-    this.wallets.push(newWallet);
+    // this.wallets.push(newWallet);
     this.fireBaseService.saveWallet(newWallet);
-    this.refreshWalletBalances();
+    // this.refreshWalletBalances();
   }
 
   removeWallet(index: number) {
     this.fireBaseService.deleteWallet(this.wallets[index]);
-    this.wallets.splice(index, 1);
-    this.refreshWalletBalances();
+    // this.wallets.splice(index, 1);
+    // this.refreshWalletBalances();
   }
 
 }

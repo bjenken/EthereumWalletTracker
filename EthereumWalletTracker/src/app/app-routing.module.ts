@@ -9,7 +9,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 const appRoutes: Routes = [
-    {path: '', redirectTo: '/wallets', pathMatch: 'full'},
+    {path: '', redirectTo: '/signin', pathMatch: 'full'},
     {path: 'wallets', component: WalletListComponent, canActivate: [AuthGuardService]},
     {path: 'wallet-details/:id', component: WalletDetailsComponent, canActivate: [AuthGuardService]},
     {path: 'signup', component: SignupComponent},
